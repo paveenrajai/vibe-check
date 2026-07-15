@@ -20,11 +20,14 @@ members = [
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
+    "pytest-asyncio>=0.25.0",
+    "httpx>=0.28.0",
     "ruff>=0.8.0",
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests"]
+testpaths = ["packages/core/tests", "apps/mcp/tests"]
+asyncio_mode = "auto"
 
 [tool.ruff]
 line-length = 100

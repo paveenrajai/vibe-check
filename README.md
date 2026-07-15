@@ -45,25 +45,30 @@ See [`docs/architecture.md`](docs/architecture.md).
 git clone https://github.com/paveenrajai/vibe-check.git
 cd vibe-check
 uv sync
-uv run vibe-check          # MCP server (stdio)
 ```
 
-### Docker
+No server to run manually — Cursor and Claude Desktop spawn vibe-check over **stdio** when needed.
 
-```bash
-docker compose up --build
-```
+### Connect (stdio — recommended)
 
-### Cursor MCP config
+Full guide: **[`docs/connecting.md`](docs/connecting.md)**
+
+| Client | Config file |
+|--------|-------------|
+| **Cursor** | `.cursor/mcp.json` (project or global MCP settings) |
+| **Claude Desktop (macOS)** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| **Claude Desktop (Windows)** | `%APPDATA%\Claude\claude_desktop_config.json` |
+
+**macOS example:**
 
 ```json
 {
   "mcpServers": {
     "vibe-check": {
       "command": "uv",
-      "args": ["--directory", "/absolute/path/to/vibe-check", "run", "vibe-check"],
+      "args": ["--directory", "/Users/you/Projects/vibe-check", "run", "vibe-check"],
       "env": {
-        "VIBE_CHECK_DATA_DIR": "/absolute/path/to/vibe-check/data",
+        "VIBE_CHECK_DATA_DIR": "/Users/you/Projects/vibe-check/data",
         "VIBE_CHECK_TRANSPORT": "stdio"
       }
     }
@@ -71,7 +76,26 @@ docker compose up --build
 }
 ```
 
-See [`examples/mcp-cursor.json`](examples/mcp-cursor.json) and [`docs/self-hosting.md`](docs/self-hosting.md).
+**Windows example** (note escaped backslashes in JSON):
+
+```json
+{
+  "mcpServers": {
+    "vibe-check": {
+      "command": "uv",
+      "args": ["--directory", "C:\\Users\\you\\Projects\\vibe-check", "run", "vibe-check"],
+      "env": {
+        "VIBE_CHECK_DATA_DIR": "C:\\Users\\you\\Projects\\vibe-check\\data",
+        "VIBE_CHECK_TRANSPORT": "stdio"
+      }
+    }
+  }
+}
+```
+
+Restart the client → confirm `vibe-check` is connected (Cursor: MCP settings; Claude: Connectors → Manage).
+
+**Examples:** [`examples/`](examples/) — per-platform JSON templates.
 
 ## Project layout
 
@@ -85,8 +109,7 @@ vibe-check/
 ├── schemas/                # JSON Schema contracts
 ├── data/                   # Local profile storage (gitignored)
 ├── docs/
-├── docker/
-├── Dockerfile
+├── Dockerfile              # optional HTTP mode
 └── docker-compose.yml
 ```
 
@@ -94,19 +117,15 @@ vibe-check/
 
 ```bash
 uv sync
-uv run pytest
+uv run pytest -v
 uv run ruff check packages apps
 ```
 
+See [`docs/testing.md`](docs/testing.md).
+
 ## Roadmap
 
-- [x] Monorepo with shared `packages/core`
-- [x] MCP server (FastMCP + stdio)
-- [x] JSON file store
-- [x] Docker for MCP HTTP
-- [ ] `apps/api` — REST endpoints for profile management
-- [ ] `apps/web` — UI for profile, observations, audit log
-- [ ] Auth for HTTP / API
+MCP + local profile works today. Next: hardening, API, web UI. Full plan: [`docs/roadmap.md`](docs/roadmap.md).
 
 ## License
 

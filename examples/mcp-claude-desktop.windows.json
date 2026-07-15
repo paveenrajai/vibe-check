@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "vibe-check": {
+      "command": "uv",
+      "args": ["--directory", "C:\\Users\\you\\Projects\\vibe-check", "run", "vibe-check"],
+      "env": {
+        "VIBE_CHECK_DATA_DIR": "C:\\Users\\you\\Projects\\vibe-check\\data",
+        "VIBE_CHECK_TRANSPORT": "stdio"
+      }
+    }
+  }
+}

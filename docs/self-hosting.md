@@ -1,12 +1,20 @@
 # Self-hosting
 
-## Docker (recommended for HTTP)
+## stdio (recommended)
+
+For **Cursor** and **Claude Desktop** on macOS and Windows. See **[`connecting.md`](connecting.md)**.
+
+---
+
+## Docker + HTTP (optional)
+
+For clients that support a remote MCP URL (e.g. Cursor URL mode). **Not supported natively by Claude Desktop.**
 
 ```bash
 docker compose up -d --build
 ```
 
-Default: stdio is not used in Docker; the container exposes HTTP on port `3100`.
+Server listens on `http://localhost:3100/sse` (legacy SSE transport).
 
 Environment:
 
@@ -18,65 +26,40 @@ Environment:
 | `VIBE_CHECK_PORT` | `3100` | HTTP listen port |
 | `VIBE_CHECK_AUTH_TOKEN` | — | Required for non-localhost HTTP (planned) |
 
-## Volume
-
-Mount host directory for persistence:
+### Volume
 
 ```yaml
 volumes:
   - ./data:/data
 ```
 
-## MCP over HTTP
-
-The server mounts FastMCP's SSE app via uvicorn. Point clients that support remote MCP at:
-
-```
-http://localhost:3100/sse
-```
-
-Auth header support is planned: `Authorization: Bearer <VIBE_CHECK_AUTH_TOKEN>`.
-
-## Local stdio (no Docker)
-
-For Cursor / Claude Desktop:
+### Cursor (URL mode)
 
 ```json
 {
   "mcpServers": {
     "vibe-check": {
-      "command": "uv",
-      "args": ["--directory", "/absolute/path/to/vibe-check", "run", "vibe-check"],
-      "env": {
-        "VIBE_CHECK_DATA_DIR": "/absolute/path/to/vibe-check/data",
-        "VIBE_CHECK_TRANSPORT": "stdio"
-      }
+      "url": "http://localhost:3100/sse"
     }
   }
 }
 ```
 
-Alternative without uv in PATH:
+Use `/sse`, not `/mcp` — vibe-check Docker currently exposes SSE, not Streamable HTTP.
+
+### Claude Desktop + Docker
+
+Claude Desktop config only accepts stdio. To use Docker HTTP, bridge with `mcp-remote`:
 
 ```json
 {
   "mcpServers": {
     "vibe-check": {
-      "command": "/absolute/path/to/vibe-check/.venv/bin/python",
-      "args": ["-m", "vibe_check"],
-      "env": {
-        "VIBE_CHECK_DATA_DIR": "/absolute/path/to/vibe-check/data"
-      }
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://localhost:3100/sse"]
     }
   }
 }
 ```
 
-## Claude Desktop
-
-After `uv sync`, install via MCP CLI:
-
-```bash
-uv run mcp install src/vibe_check/__main__.py --name vibe-check \
-  -v VIBE_CHECK_DATA_DIR=/absolute/path/to/vibe-check/data
-```
+Prefer stdio instead — simpler and more reliable.
