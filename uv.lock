@@ -819,6 +819,12 @@ wheels = [
 name = "vibe-check-core"
 version = "0.0.0"
 source = { editable = "packages/core" }
+dependencies = [
+    { name = "jsonschema" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "jsonschema", specifier = ">=4.26.0" }]
 
 [[package]]
 name = "vibe-check-mcp"

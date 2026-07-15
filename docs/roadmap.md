@@ -4,7 +4,7 @@
 
 - [x] Monorepo with shared `packages/core`
 - [x] MCP server (FastMCP + stdio)
-- [x] Tools: `get_profile`, `update_profile`, `record_observation`, `search_profile`
+- [x] Tools: `get_profile`, `update_profile`, `record_observation`, `search_profile`, `list_observations`, `accept_observation`, `reject_observation`
 - [x] MCP resources: `vibe-check://profile`
 - [x] JSON file store (`profile.json`, `audit.jsonl`, `observations.jsonl`)
 - [x] stdio setup for Cursor and Claude Desktop (macOS + Windows)
@@ -13,8 +13,8 @@
 
 ## Phase 2 — Hardening
 
-- [ ] JSON Schema validation on read/write
-- [ ] Observation review workflow (accept / reject / merge)
+- [x] JSON Schema validation on read/write
+- [x] Observation review workflow (accept / reject / merge)
 - [ ] Richer audit metadata (client, session, actor)
 - [ ] Field-level `update_profile` (patch, not full section replace)
 - [ ] CLI to inspect and edit profile from terminal

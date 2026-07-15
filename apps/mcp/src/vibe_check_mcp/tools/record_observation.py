@@ -1,6 +1,4 @@
 import json
-from datetime import UTC, datetime
-from uuid import uuid4
 
 from vibe_check_core.config import get_config
 from vibe_check_core.profile.store import ProfileStore
@@ -17,19 +15,10 @@ def record_observation(
 ) -> str:
     """Log an inferred preference for later review (does not merge into profile yet)."""
     store = ProfileStore(get_config().data_dir)
-    store.ensure_data_dir()
-
-    observation = {
-        "id": f"obs_{uuid4().hex[:12]}",
-        "section": section,
-        "value": value,
-        "source": source,
-        "confidence": confidence,
-        "status": "pending",
-        "created_at": datetime.now(UTC).isoformat(),
-    }
-
-    with store.observations_path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(observation, ensure_ascii=False) + "\n")
-
+    observation = store.record_observation(
+        section=section,
+        value=value,
+        source=source,
+        confidence=confidence,
+    )
     return json.dumps(observation, ensure_ascii=False)

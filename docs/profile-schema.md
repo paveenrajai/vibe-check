@@ -87,4 +87,12 @@ Inferred updates use `record_observation` before merging into the profile:
 }
 ```
 
-Users review pending observations via CLI or future UI.
+Users review pending observations with MCP tools:
+
+| Tool | Purpose |
+|------|---------|
+| `list_observations` | List pending (or filter by status) |
+| `accept_observation` | Merge into profile at dot-path `section` |
+| `reject_observation` | Discard without profile changes |
+
+Profile documents are validated against [`schemas/profile.v1.json`](../schemas/profile.v1.json) on every read and write.

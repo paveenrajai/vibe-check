@@ -4,7 +4,7 @@ version = "0.0.0"
 description = "Shared profile domain logic for vibe-check"
 requires-python = ">=3.12"
 license = { text = "MIT" }
-dependencies = []
+dependencies = ["jsonschema>=4.26.0"]
 
 [build-system]
 requires = ["hatchling"]

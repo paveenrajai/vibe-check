@@ -32,8 +32,11 @@ async def test_mcp_stdio_lists_tools_and_gets_profile(data_dir: Path) -> None:
             tools = await session.list_tools()
             tool_names = sorted(t.name for t in tools.tools)
             assert tool_names == [
+                "accept_observation",
                 "get_profile",
+                "list_observations",
                 "record_observation",
+                "reject_observation",
                 "search_profile",
                 "update_profile",
             ]

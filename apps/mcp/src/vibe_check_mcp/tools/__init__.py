@@ -1,3 +1,19 @@
-from vibe_check_mcp.tools import get_profile, record_observation, search_profile, update_profile
+from vibe_check_mcp.tools import (
+    accept_observation,
+    get_profile,
+    list_observations,
+    record_observation,
+    reject_observation,
+    search_profile,
+    update_profile,
+)
 
-__all__ = ["get_profile", "record_observation", "search_profile", "update_profile"]
+__all__ = [
+    "accept_observation",
+    "get_profile",
+    "list_observations",
+    "record_observation",
+    "reject_observation",
+    "search_profile",
+    "update_profile",
+]
