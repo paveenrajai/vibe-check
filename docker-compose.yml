@@ -1,0 +1,14 @@
+services:
+  vibe-check:
+    build: .
+    ports:
+      - "${VIBE_CHECK_PORT:-3100}:3100"
+    environment:
+      VIBE_CHECK_DATA_DIR: /data
+      VIBE_CHECK_TRANSPORT: http
+      VIBE_CHECK_HOST: 0.0.0.0
+      VIBE_CHECK_PORT: "3100"
+      VIBE_CHECK_AUTH_TOKEN: ${VIBE_CHECK_AUTH_TOKEN:-}
+    volumes:
+      - ./data:/data
+    restart: unless-stopped

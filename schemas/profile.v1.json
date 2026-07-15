@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vibe-check/profile/v1",
+  "title": "vibe-check profile",
+  "type": "object",
+  "required": ["$schema", "version", "updated_at"],
+  "properties": {
+    "$schema": { "const": "vibe-check/profile/v1" },
+    "version": { "type": "integer", "const": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "communication": { "type": "object" },
+    "code": { "type": "object" },
+    "design": { "type": "object" },
+    "personality": { "type": "object" },
+    "interests": { "type": "array" },
+    "context": { "type": "object" },
+    "tooling": { "type": "object" },
+    "custom": { "type": "object" }
+  },
+  "additionalProperties": false
+}

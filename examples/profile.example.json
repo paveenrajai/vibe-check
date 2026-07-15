@@ -1,0 +1,32 @@
+{
+  "$schema": "vibe-check/profile/v1",
+  "version": 1,
+  "updated_at": "2026-07-15T12:00:00Z",
+  "communication": {
+    "verbosity": "concise",
+    "tone": ["warm", "direct"],
+    "formatting": {
+      "prefer_markdown": true
+    },
+    "notes": "Crisp answers without fluff."
+  },
+  "code": {
+    "naming": "match surrounding conventions",
+    "css_units": "rem/em only, never px",
+    "scope": "minimal diffs"
+  },
+  "design": {
+    "aesthetic": "clean, accessible"
+  },
+  "personality": {
+    "traits": ["curious", "pragmatic"]
+  },
+  "interests": [],
+  "context": {
+    "current_projects": [],
+    "goals": [],
+    "blockers": []
+  },
+  "tooling": {},
+  "custom": {}
+}
