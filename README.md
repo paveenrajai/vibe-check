@@ -2,7 +2,7 @@
 
 A local, self-hostable [MCP](https://modelcontextprotocol.io) server that builds a **transparent profile** of how you work with AI — so every LLM client (Cursor, Claude, ChatGPT, Perplexity, etc.) can know your preferences without you repeating yourself.
 
-Built with the [official MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) and [FastMCP](https://modelcontextprotocol.io/docs/develop/build-server).
+Built with the [official MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) (v2, `MCPServer`).
 
 ## The problem
 

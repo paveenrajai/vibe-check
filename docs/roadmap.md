@@ -3,13 +3,13 @@
 ## Phase 1 — MCP + local profile (current)
 
 - [x] Monorepo with shared `packages/core`
-- [x] MCP server (FastMCP + stdio)
+- [x] MCP server (MCP Python SDK 2.x `MCPServer` + stdio)
 - [x] Tools: `get_profile`, `update_profile`, `record_observation`, `search_profile`, `list_observations`, `accept_observation`, `reject_observation`
 - [x] MCP resources: `vibe-check://profile`
 - [x] JSON file store (`profile.json`, `audit.jsonl`, `observations.jsonl`)
 - [x] stdio setup for Cursor and Claude Desktop (macOS + Windows)
 - [x] Integration tests (stdio + HTTP)
-- [x] Docker for legacy SSE HTTP (optional)
+- [x] Docker for HTTP (optional)
 
 ## Phase 2 — Hardening
 
@@ -18,8 +18,10 @@
 - [ ] Richer audit metadata (client, session, actor)
 - [ ] Field-level `update_profile` (patch, not full section replace)
 - [ ] CLI to inspect and edit profile from terminal
-- [ ] Streamable HTTP transport (`/mcp`) for ChatGPT and remote clients
-- [ ] Auth for HTTP transport (`VIBE_CHECK_AUTH_TOKEN`)
+- [x] Streamable HTTP transport (`/mcp`) for ChatGPT and remote clients
+- [x] Auth for HTTP transport (`VIBE_CHECK_AUTH_TOKEN`, static bearer token)
+- [x] Structured tool output and tool annotations (read-only / destructive hints)
+- [ ] OAuth for HTTP transport (per-client tokens)
 
 ## Phase 3 — Web UI
 
