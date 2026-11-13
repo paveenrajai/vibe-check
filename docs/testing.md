@@ -13,7 +13,8 @@ uv run pytest -v
 |------|------------------|
 | `packages/core/tests/` | Profile JSON bootstrap and storage |
 | `apps/mcp/tests/test_mcp_stdio.py` | Full MCP stdio session: list tools, call `get_profile` |
-| `apps/mcp/tests/test_mcp_http.py` | HTTP server starts; `/sse` responds |
+| `apps/mcp/tests/test_mcp_stdio.py` (cont.) | Tool annotations and structured output are advertised |
+| `apps/mcp/tests/test_mcp_http.py` | Streamable HTTP session on `/mcp` with bearer token; missing or wrong token gets `401`; stateless (no `mcp-session-id`) |
 
 ## MCP Inspector (manual)
 
@@ -26,7 +27,7 @@ VIBE_CHECK_DATA_DIR=./data \
 
 Open the Inspector URL printed in the terminal. Try `get_profile` and read `vibe-check://profile`.
 
-> **Why not `server.py:mcp`?** `mcp dev` loads that file in isolation, which creates a second empty FastMCP instance. Tools register on the package instance instead, so `tools/list` returns `[]`.
+> **Why not `server.py:mcp`?** `mcp dev` loads that file in isolation, which creates a second empty `MCPServer` instance. Tools register on the package instance instead, so `tools/list` returns `[]`.
 
 ## Cursor & Claude Desktop (manual, stdio)
 
@@ -36,8 +37,8 @@ macOS and Windows: see [`docs/connecting.md`](connecting.md). Restart the client
 
 ```bash
 docker compose up --build -d
-curl -s -o /dev/null -w "%{http_code}\n" --max-time 2 http://localhost:3100/sse
+curl -s -o /dev/null -w "%{http_code}\n" -X POST http://localhost:3100/mcp
 docker compose down
 ```
 
-Expect `200`. Use `--max-time` because `/sse` is a long-lived stream.
+Expect `401` when `VIBE_CHECK_AUTH_TOKEN` is set (auth is working). For a full check, point the MCP Inspector at `http://localhost:3100/mcp` with the bearer token.

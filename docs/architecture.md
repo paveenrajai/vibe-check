@@ -15,7 +15,7 @@ vibe-check is a **monorepo**. Shared profile logic lives in one package; each de
                            │
 ┌─────────────┐     ┌──────▼──────────────────────────┐     ┌─────────────┐
 │ MCP clients │────►│  apps/mcp                       │────►│  data/      │
-│ Cursor etc. │ MCP │  FastMCP tools + resources      │     │  profile    │
+│ Cursor etc. │ MCP │  MCPServer tools + resources    │     │  profile    │
 └─────────────┘     └──────┬──────────────────────────┘     └─────────────┘
                            │
                     ┌──────▼──────┐
@@ -83,7 +83,7 @@ Frontend only. Calls `apps/api`; types derived from `schemas/profile.v1.json`.
 | App | Transport | Use case |
 |-----|-----------|----------|
 | `apps/mcp` | stdio | Cursor, Claude Desktop |
-| `apps/mcp` | HTTP (SSE) | Docker self-host |
+| `apps/mcp` | Streamable HTTP (`/mcp`, stateless, JSON responses) | Docker self-host, remote clients |
 | `apps/api` | HTTP REST | Web UI, integrations |
 
 ## Why monorepo

@@ -45,6 +45,13 @@ async def test_mcp_stdio_lists_tools_and_gets_profile(data_dir: Path) -> None:
                 "get_profile",
                 arguments={"section": "communication"},
             )
+            assert result.structured_content["communication"]["verbosity"] == "concise"
+            # Text content stays JSON for clients that ignore structured output.
             payload = json.loads(result.content[0].text)
-            assert payload["communication"]["verbosity"] == "concise"
+            assert payload == result.structured_content
+
+            tool_by_name = {t.name: t for t in tools.tools}
+            assert tool_by_name["get_profile"].annotations.read_only_hint is True
+            assert tool_by_name["update_profile"].annotations.destructive_hint is True
+            assert tool_by_name["get_profile"].output_schema is not None
             assert (data_dir / "profile.json").exists()
